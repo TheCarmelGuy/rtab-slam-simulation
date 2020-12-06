@@ -13,14 +13,14 @@ std::pair<double, double> calculate_ball_centroid(const sensor_msgs::Image img)
   std::pair<double,double> ballCentroid;
   std::vector<int> xPix, yPix; 
 
-  for(int pixIndex = 0 ; pixIndex < img.height*img.step; pixIndex++)
+  for(int pixIndex = 0 ; pixIndex < img.height*img.step; pixIndex = pixIndex + 3)
   {
 
-    if(int(img.data[pixIndex]) == 255)
+    if((int(img.data[pixIndex]) == 255) && (int(img.data[pixIndex + 1]) == 255) && (int(img.data[pixIndex + 2]) == 255) )
     {
 
-      int y = pixIndex/img.height;
-      int x = pixIndex % img.step;
+      int y = pixIndex/(img.height * 3);
+      int x = (pixIndex % img.step)/3;
 
       ROS_DEBUG("process_image(): Found white pixel at x = %d y = %d", x,y);
       xPix.push_back(x);
@@ -92,7 +92,7 @@ void process_image_callback(const sensor_msgs::Image img)
     // Request a stop when there's no white ball seen by the camera
 
   
-    double leftMax = static_cast<double>(img.step)/3.0;
+    double leftMax = static_cast<double>(img.step)/9.0; //drivde 3 * 3. One 3 to partition the image into 3 sections (left, right and middle). Another 3 to account for "image.stop" accounting for 3 channels
     double rightMin = 2*leftMax;
  
    
