@@ -23,7 +23,7 @@ bool handle_drive_request(ball_chaser::DriveToTarget::Request& req,  ball_chaser
 
     motor_command_publisher.publish(motor_command);
 
-    ros::Duration(0.2).sleep(); //wait for state to settle
+    //ros::Duration(0.2).sleep(); //wait for state to settle
 
     res.msg_feedback = "Linear and Angular Velocity set - lin: " + std::to_string(motor_command.linear.x) + " , ang: " + std::to_string(motor_command.angular.z);
     ROS_INFO_STREAM(res.msg_feedback);
