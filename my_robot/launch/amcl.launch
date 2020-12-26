@@ -22,6 +22,7 @@
 
     <param name="initial_pose_x" value="0"/>
     <param name="initial_pose_y" value="0"/>
+    <param name="initial_pose_a" value="-1.57"/>
     <param name="selective_resample" value="false"/>
 
     <param name="odom_alpha1" value="0.02"/>
